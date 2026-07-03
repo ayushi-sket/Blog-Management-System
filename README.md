@@ -549,8 +549,9 @@ Blog-Management-System
 
 ---
 
-# Author
+# Team Members
 
-**Mridul Krishan**
+**Mridul**
+**Ayushi**
 
 Backend Internship Project
