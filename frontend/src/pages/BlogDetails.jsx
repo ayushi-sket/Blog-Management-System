@@ -33,6 +33,11 @@ function BlogDetails() {
     fetchBlog();
   };
 
+  const dislikeBlog = async () => {
+    await API.put(`/blogs/${id}/dislike`);
+    fetchBlog();
+  };
+
   useEffect(() => {
     fetchBlog();
   }, []);
@@ -43,36 +48,52 @@ function BlogDetails() {
 
   return (
     <div className="container">
-      <div className="card">
+      <div className="details-card">
         <h2>{blog.title}</h2>
-        <p>{blog.content}</p>
-        <p>Category: {blog.category}</p>
-        <p>Author: {blog.author?.name}</p>
-        <p>Likes: {blog.likes?.length}</p>
+        <p className="blog-content">{blog.content}</p>
 
-        <button onClick={likeBlog}>Like / Unlike</button>
+        <div className="blog-meta">
+          <span>Category: {blog.category}</span>
+          <span>Author: {blog.author?.name}</span>
+          <span>Status: {blog.status}</span>
+        </div>
+
+        <div className="reaction-box">
+          <button className="like-btn" onClick={likeBlog}>
+            Like ({blog.likes?.length || 0})
+          </button>
+
+          <button className="dislike-btn" onClick={dislikeBlog}>
+            Dislike ({blog.dislikes?.length || 0})
+          </button>
+        </div>
       </div>
 
-      <h3>Comments</h3>
+      <div className="comment-section">
+        <h3>Comments</h3>
 
-      <form onSubmit={addComment} className="form">
-        <input
-          type="text"
-          placeholder="Write comment"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
+        <form onSubmit={addComment} className="form comment-form">
+          <input
+            type="text"
+            placeholder="Write your comment"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          />
 
-        <button type="submit">Add Comment</button>
-      </form>
+          <button type="submit">Add Comment</button>
+        </form>
 
-      {comments.map((comment) => (
-        <div className="card" key={comment._id}>
-          <p>{comment.text}</p>
-          <p>By: {comment.user?.name}</p>
-          <button onClick={() => deleteComment(comment._id)}>Delete</button>
-        </div>
-      ))}
+        {comments.map((comment) => (
+          <div className="comment-card" key={comment._id}>
+            <p>{comment.text}</p>
+            <small>By: {comment.user?.name}</small>
+            <br />
+            <button onClick={() => deleteComment(comment._id)}>
+              Delete Comment
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -26,30 +26,49 @@ function AuthorDashboard() {
 
   return (
     <div className="container">
-      <h2>Author Dashboard</h2>
+      <div className="page-header">
+        <h2>Author Dashboard</h2>
+        <p>Create, edit, submit, and manage your own blogs</p>
+      </div>
 
-      <Link to="/create-blog" className="btn-link">
+      <Link to="/create-blog" className="create-btn">
         Create New Blog
       </Link>
 
-      {blogs.map((blog) => (
-        <div className="card" key={blog._id}>
-          <h3>{blog.title}</h3>
-          <p>{blog.content.slice(0, 100)}...</p>
-          <p>Category: {blog.category}</p>
-          <p>Status: {blog.status}</p>
+      <div className="grid">
+        {blogs.map((blog) => (
+          <div className="blog-card" key={blog._id}>
+            <span className={`status ${blog.status.toLowerCase()}`}>
+              {blog.status}
+            </span>
 
-          <Link to={`/edit-blog/${blog._id}`}>Edit</Link>
+            <h3>{blog.title}</h3>
+            <p>{blog.content.slice(0, 120)}...</p>
 
-          <button onClick={() => deleteBlog(blog._id)}>Delete</button>
+            <div className="blog-meta">
+              <span>Category: {blog.category}</span>
+              <span>Likes: {blog.likes?.length || 0}</span>
+              <span>Dislikes: {blog.dislikes?.length || 0}</span>
+            </div>
 
-          {blog.status === "Draft" || blog.status === "Rejected" ? (
-            <button onClick={() => submitBlog(blog._id)}>
-              Submit for Approval
-            </button>
-          ) : null}
-        </div>
-      ))}
+            <div className="action-row">
+              <Link to={`/edit-blog/${blog._id}`} className="edit-btn">
+                Edit
+              </Link>
+
+              <button onClick={() => deleteBlog(blog._id)} className="delete-btn">
+                Delete
+              </button>
+
+              {(blog.status === "Draft" || blog.status === "Rejected") && (
+                <button onClick={() => submitBlog(blog._id)} className="submit-btn">
+                  Submit
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

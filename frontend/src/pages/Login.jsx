@@ -22,8 +22,8 @@ function Login() {
     try {
       const res = await API.post("/auth/login", form);
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem("blog_token", res.data.token);
+      localStorage.setItem("blog_user", JSON.stringify(res.data.user));
 
       if (res.data.user.role === "Admin") {
         navigate("/admin");
@@ -32,36 +32,41 @@ function Login() {
       } else {
         navigate("/reader");
       }
+
+      window.location.reload();
     } catch (error) {
       setMessage(error.response?.data?.message || "Login failed");
     }
   };
 
   return (
-    <div className="container">
-      <h2>Login</h2>
+    <div className="auth-page">
+      <div className="auth-card">
+        <h2>Welcome Back</h2>
+        <p className="subtitle">Login to continue to BlogSphere</p>
 
-      <form onSubmit={loginUser} className="form">
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter email"
-          value={form.email}
-          onChange={handleChange}
-        />
+        <form onSubmit={loginUser} className="form">
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter email"
+            value={form.email}
+            onChange={handleChange}
+          />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter password"
-          value={form.password}
-          onChange={handleChange}
-        />
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            value={form.password}
+            onChange={handleChange}
+          />
 
-        <button type="submit">Login</button>
-      </form>
+          <button type="submit">Login</button>
+        </form>
 
-      <p>{message}</p>
+        <p className="message">{message}</p>
+      </div>
     </div>
   );
 }

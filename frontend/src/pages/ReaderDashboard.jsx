@@ -16,18 +16,30 @@ function ReaderDashboard() {
 
   return (
     <div className="container">
-      <h2>Reader Dashboard</h2>
-      <h3>Approved Blogs</h3>
+      <div className="page-header">
+        <h2>Reader Dashboard</h2>
+        <p>Read approved blogs from different authors</p>
+      </div>
 
-      {blogs.map((blog) => (
-        <div className="card" key={blog._id}>
-          <h3>{blog.title}</h3>
-          <p>{blog.content.slice(0, 100)}...</p>
-          <p>Category: {blog.category}</p>
-          <p>Author: {blog.author?.name}</p>
-          <Link to={`/blogs/${blog._id}`}>Read More</Link>
-        </div>
-      ))}
+      <div className="grid">
+        {blogs.map((blog) => (
+          <div className="blog-card" key={blog._id}>
+            <span className="category">{blog.category}</span>
+            <h3>{blog.title}</h3>
+            <p>{blog.content.slice(0, 120)}...</p>
+
+            <div className="blog-meta">
+              <span>Author: {blog.author?.name}</span>
+              <span>Likes: {blog.likes?.length || 0}</span>
+              <span>Dislikes: {blog.dislikes?.length || 0}</span>
+            </div>
+
+            <Link to={`/blogs/${blog._id}`} className="read-btn">
+              Read More
+            </Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

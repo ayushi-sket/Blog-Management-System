@@ -1,83 +1,291 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #f4f6f8;
+  background: linear-gradient(135deg, #e0f2fe, #fdf2f8);
+  color: #1f2937;
 }
 
 .navbar {
-  background-color: #222;
+  background: linear-gradient(90deg, #4f46e5, #9333ea, #db2777);
   color: white;
-  padding: 15px 30px;
+  padding: 18px 35px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.navbar a {
-  color: white;
-  margin-left: 15px;
-  text-decoration: none;
+.navbar h2 {
+  margin: 0;
+  font-size: 28px;
 }
 
-.navbar button {
-  margin-left: 15px;
-  padding: 8px 12px;
-  cursor: pointer;
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.logout-btn {
+  background-color: #ef4444;
 }
 
 .container {
-  width: 80%;
-  margin: 30px auto;
+  width: 85%;
+  margin: 35px auto;
+}
+
+.auth-page {
+  min-height: calc(100vh - 75px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-card {
+  background: white;
+  width: 420px;
+  padding: 35px;
+  border-radius: 18px;
+  box-shadow: 0 15px 35px rgba(79, 70, 229, 0.25);
+}
+
+.auth-card h2 {
+  color: #4f46e5;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-bottom: 25px;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  max-width: 500px;
+  gap: 14px;
 }
 
 input,
 textarea,
 select {
-  padding: 10px;
-  font-size: 16px;
+  padding: 13px;
+  font-size: 15px;
+  border: 1px solid #c7d2fe;
+  border-radius: 10px;
+  outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #6366f1;
 }
 
 textarea {
-  min-height: 150px;
+  min-height: 160px;
 }
 
 button {
-  padding: 10px 14px;
-  background-color: #222;
+  padding: 11px 15px;
+  background: #4f46e5;
   color: white;
   border: none;
+  border-radius: 9px;
   cursor: pointer;
-  margin: 5px;
+  font-weight: bold;
 }
 
 button:hover {
-  background-color: #444;
+  opacity: 0.9;
 }
 
-.card {
-  background-color: white;
-  padding: 18px;
-  margin: 15px 0;
-  border-radius: 8px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+.message {
+  color: #dc2626;
+  font-weight: bold;
 }
 
-.card a {
-  margin-right: 10px;
+.page-header {
+  background: white;
+  padding: 25px;
+  border-left: 7px solid #4f46e5;
+  border-radius: 14px;
+  margin-bottom: 25px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-.btn-link {
+.page-header h2 {
+  margin: 0;
+  color: #4f46e5;
+}
+
+.page-header p {
+  margin-bottom: 0;
+  color: #6b7280;
+}
+
+.admin-header {
+  border-left-color: #db2777;
+}
+
+.section-title {
+  color: #111827;
+  margin-top: 35px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 22px;
+}
+
+.blog-card,
+.user-card,
+.details-card,
+.comment-card {
+  background: white;
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+}
+
+.blog-card h3 {
+  color: #111827;
+}
+
+.category {
   display: inline-block;
-  background-color: #222;
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.blog-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #4b5563;
+  margin: 15px 0;
+}
+
+.read-btn,
+.create-btn,
+.edit-btn {
+  display: inline-block;
+  background: #4f46e5;
   color: white;
-  padding: 10px 14px;
   text-decoration: none;
+  padding: 10px 14px;
+  border-radius: 9px;
+  font-weight: bold;
+}
+
+.create-btn {
+  margin-bottom: 25px;
+  background: #16a34a;
+}
+
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.delete-btn {
+  background: #dc2626;
+}
+
+.submit-btn {
+  background: #f59e0b;
+}
+
+.approve-btn {
+  background: #16a34a;
+}
+
+.reject-btn {
+  background: #f97316;
+}
+
+.like-btn {
+  background: #2563eb;
+}
+
+.dislike-btn {
+  background: #dc2626;
+}
+
+.reaction-box {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.details-card h2 {
+  color: #4f46e5;
+}
+
+.blog-content {
+  line-height: 1.7;
+  font-size: 17px;
+}
+
+.comment-section {
+  margin-top: 35px;
+}
+
+.comment-form {
   margin-bottom: 20px;
+}
+
+.status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.status.draft {
+  background: #6b7280;
+}
+
+.status.pending {
+  background: #f59e0b;
+}
+
+.status.approved {
+  background: #16a34a;
+}
+
+.status.rejected {
+  background: #dc2626;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .container {
+    width: 94%;
+  }
+
+  .auth-card {
+    width: 90%;
+  }
 }

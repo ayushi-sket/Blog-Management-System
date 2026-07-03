@@ -31,43 +31,46 @@ function Register() {
   };
 
   return (
-    <div className="container">
-      <h2>Register</h2>
+    <div className="auth-page">
+      <div className="auth-card">
+        <h2>Create Account</h2>
+        <p className="subtitle">Register as Reader or Author</p>
 
-      <form onSubmit={registerUser} className="form">
-        <input
-          type="text"
-          name="name"
-          placeholder="Enter name"
-          value={form.name}
-          onChange={handleChange}
-        />
+        <form onSubmit={registerUser} className="form">
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter name"
+            value={form.name}
+            onChange={handleChange}
+          />
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter email"
-          value={form.email}
-          onChange={handleChange}
-        />
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter email"
+            value={form.email}
+            onChange={handleChange}
+          />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter password"
-          value={form.password}
-          onChange={handleChange}
-        />
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter password"
+            value={form.password}
+            onChange={handleChange}
+          />
 
-        <select name="role" value={form.role} onChange={handleChange}>
-          <option value="Reader">Reader</option>
-          <option value="Author">Author</option>
-        </select>
+          <select name="role" value={form.role} onChange={handleChange}>
+            <option value="Reader">Reader</option>
+            <option value="Author">Author</option>
+          </select>
 
-        <button type="submit">Register</button>
-      </form>
+          <button type="submit">Register</button>
+        </form>
 
-      <p>{message}</p>
+        <p className="message">{message}</p>
+      </div>
     </div>
   );
 }
