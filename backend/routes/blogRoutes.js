@@ -263,27 +263,77 @@ router.put(
         return res.status(400).json({ message: "Only approved blogs can be liked" });
       }
 
-      const alreadyLiked = blog.likes.includes(req.user._id);
+      const userId = req.user._id.toString();
+
+      blog.dislikes = blog.dislikes.filter(
+        (id) => id.toString() !== userId
+      );
+
+      const alreadyLiked = blog.likes.some(
+        (id) => id.toString() === userId
+      );
 
       if (alreadyLiked) {
         blog.likes = blog.likes.filter(
-          (userId) => userId.toString() !== req.user._id.toString()
+          (id) => id.toString() !== userId
         );
-
-        await blog.save();
-
-        return res.status(200).json({
-          message: "Blog unliked successfully",
-          likes: blog.likes.length
-        });
+      } else {
+        blog.likes.push(req.user._id);
       }
 
-      blog.likes.push(req.user._id);
       await blog.save();
 
       res.status(200).json({
-        message: "Blog liked successfully",
-        likes: blog.likes.length
+        message: alreadyLiked ? "Like removed" : "Blog liked",
+        likes: blog.likes.length,
+        dislikes: blog.dislikes.length
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Server error", error: error.message });
+    }
+  }
+);
+
+router.put(
+  "/:id/dislike",
+  authMiddleware,
+  roleMiddleware("Reader", "Author", "Admin"),
+  async (req, res) => {
+    try {
+      const blog = await Blog.findById(req.params.id);
+
+      if (!blog) {
+        return res.status(404).json({ message: "Blog not found" });
+      }
+
+      if (blog.status !== "Approved") {
+        return res.status(400).json({ message: "Only approved blogs can be disliked" });
+      }
+
+      const userId = req.user._id.toString();
+
+      blog.likes = blog.likes.filter(
+        (id) => id.toString() !== userId
+      );
+
+      const alreadyDisliked = blog.dislikes.some(
+        (id) => id.toString() === userId
+      );
+
+      if (alreadyDisliked) {
+        blog.dislikes = blog.dislikes.filter(
+          (id) => id.toString() !== userId
+        );
+      } else {
+        blog.dislikes.push(req.user._id);
+      }
+
+      await blog.save();
+
+      res.status(200).json({
+        message: alreadyDisliked ? "Dislike removed" : "Blog disliked",
+        likes: blog.likes.length,
+        dislikes: blog.dislikes.length
       });
     } catch (error) {
       res.status(500).json({ message: "Server error", error: error.message });
